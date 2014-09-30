@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('bonitaDashboardApp').controller('dashboardCtrl',
+angular.module('bonitaDashboardApp').controller('DashboardCtrl',
 		function ($scope, $log, $modal, bonitaAuthentication, bonitaConfig, BonitaSession, User, HumanTask, ArchivedHumanTask, ProcessDefinition, ProcessInstance, ArchivedProcessInstance) {
 			// Logs into Bonita as 'walter.bates'
 			bonitaAuthentication.login('walter.bates', 'bpm').then(function () {
@@ -87,12 +87,12 @@ angular.module('bonitaDashboardApp').controller('dashboardCtrl',
 				// Modal dialog that displays REST documentation
 				$scope.openRestModal = function (url) {
 					$modal.open({
-						templateUrl : 'directives/modal/' + url,
-						controller : [ '$scope', '$modalInstance', function ($scope, $modalInstance) {
+						templateUrl : 'views/directives/modal/' + url,
+						controller : function ($scope, $modalInstance) {
 							$scope.ok = function () {
 								$modalInstance.close();
 							};
-						} ]
+						}
 					});
 				};
 

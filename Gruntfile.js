@@ -1,11 +1,27 @@
-// Generated on 2014-09-30 using generator-angular 0.9.8
 'use strict';
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to recursively match all subfolders:
-// 'test/spec/**/*.js'
+var middlewareWithProxies = function (connect, options, appConfig) {
+	var middlewares = [];
+	// proxy management
+	var proxyUrl, proxyOptions;
+	var proxies = options.proxies;
+	var proxy = require('proxy-middleware');
+	var url = require('url');
+	for (proxyUrl in proxies) {
+		proxyOptions = url.parse(proxies[proxyUrl]);
+		proxyOptions.route = proxyUrl;
+		middlewares.push(proxy(proxyOptions));
+	}
+	// default conf
+	middlewares.push(connect.static(appConfig.tmp));
+	middlewares.push(connect().use('/bower_components', connect.static('./bower_components')));
+	middlewares.push(connect.static(appConfig.app));
+	return middlewares;
+};
+
+var proxies = {
+	'/bonita' : 'http://bisounours.dhcp.nantes.intranet:8080/bonita'
+};
 
 module.exports = function (grunt) {
 
@@ -72,8 +88,9 @@ module.exports = function (grunt) {
 			livereload : {
 				options : {
 					open : true,
-					middleware : function (connect) {
-						return [ connect.static(appConfig.tmp), connect().use('/bower_components', connect.static('./bower_components')), connect.static(appConfig.app) ];
+					proxies : proxies,
+					middleware : function (connect, options) {
+						return middlewareWithProxies(connect, options, appConfig);
 					}
 				}
 			},
@@ -81,8 +98,7 @@ module.exports = function (grunt) {
 				options : {
 					port : 9001,
 					middleware : function (connect) {
-						return [ connect.static(appConfig.test), connect.static('test'), connect().use('/bower_components', connect.static('./bower_components')),
-								connect.static(appConfig.app) ];
+						return [ connect.static(appConfig.test), connect.static('test'), connect().use('/bower_components', connect.static('./bower_components')), connect.static(appConfig.app) ];
 					}
 				}
 			},
@@ -290,11 +306,15 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
-		if (target === 'dist') {
-			return grunt.task.run([ 'build', 'connect:dist:keepalive' ]);
+	grunt.registerTask('serve', 'Compile then start a connect web server', function (proxyTarget) {
+		// if (target === 'dist') {
+		// return grunt.task.run([ 'build', 'connect:dist:keepalive' ]);
+		// }
+		if (!proxyTarget) {
+			grunt.fail.warn('proxyTarget should be set : grunt serve:"http\://PATH_TO_BONITA_SERVER\:PORT"');
+			return;
 		}
-
+		proxies['/bonita'] = proxyTarget;
 		grunt.task.run([ 'clean:server', 'wiredep', 'concurrent:server', 'autoprefixer', 'connect:livereload', 'watch' ]);
 	});
 

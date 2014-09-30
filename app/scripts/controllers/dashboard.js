@@ -5,7 +5,7 @@ angular.module('dashboard').controller('dashboardCtrl', function ($scope, $log, 
 	// Logs into Bonita as 'walter.bates'
 	bonitaAuthentication.login('walter.bates', 'bpm').then(function () {
 		// Lists all process definitions that can be started by current user
-		ProcessDefinition.getAllStartableByCurrentUser().$promise.then(function (processDefinitions) {
+		ProcessDefinition.getStartableByCurrentUser().$promise.then(function (processDefinitions) {
 			$log.log('Listing ' + processDefinitions.items.length + ' process definition(s):');
 			for (var i = 0; i < processDefinitions.items.length; i++) {
 				$log.log('  - ' + processDefinitions.items[i].name + ' ' + processDefinitions.items[i].version);

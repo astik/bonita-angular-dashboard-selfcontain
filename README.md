@@ -27,6 +27,7 @@ The param added to grunt serve is the destination for proxy, it allow developper
 3. Create real independant directives
 4. Deploy ngBonita on bower so that it can be define as a bower dependency
 5. Have a task to deploy the final 'custom page', ready to be imported into Bonita
+6. Boostrap should be customizable through a CSS pre-processor (like LESS which is lighter than SASS)
 
 ## Why this project
 

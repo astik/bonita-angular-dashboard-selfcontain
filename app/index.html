@@ -16,19 +16,23 @@
 <link rel="stylesheet" href="styles/main.css">
 <!-- endbuild -->
 </head>
-<body ng-app="dashboard">
+<body ng-app="dashboard" ng-controller="dashboardCtrl">
 
+	<div class="container">
+		<div class="col-lg-6">
+			<user-stats></user-stats>
+		</div>
+		<div class="col-lg-6">
+			<user-available-tasks></user-available-tasks>
+		</div>
+	</div>
 	<div class="container" ng-controller="dashboardCtrl">
-		TODO
-<!-- 		<div class="col-lg-6"> -->
-<!-- 			<user-stats></user-stats> -->
-<!-- 			<user-apps></user-apps> -->
-<!-- 		</div> -->
-<!-- 		<div class="col-lg-6"> -->
-<!-- 			<user-available-tasks></user-available-tasks> -->
-<!-- 			<user-open-cases></user-open-cases> -->
-<!-- 		</div> -->
-	
+		<div class="col-lg-6">
+			<user-apps></user-apps>
+		</div>
+		<div class="col-lg-6">
+			<user-open-cases></user-open-cases>
+		</div>
 	</div>
 
 	<!-- build:js(.) scripts/vendor.js -->

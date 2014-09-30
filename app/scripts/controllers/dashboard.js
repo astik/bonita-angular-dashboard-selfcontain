@@ -1,6 +1,20 @@
 'use strict';
 
-angular.module('dashboard').controller('dashboardCtrl', function () {
+angular.module('dashboard').controller('dashboardCtrl', function ($scope, $log, bonitaAuthentication, ProcessDefinition) {
+
+	// Logs into Bonita as 'walter.bates'
+	bonitaAuthentication.login('walter.bates', 'bpm').then(function () {
+		// Lists all process definitions that can be started by current user
+		ProcessDefinition.getAllStartableByCurrentUser().$promise.then(function (processDefinitions) {
+			$log.log('Listing ' + processDefinitions.items.length + ' process definition(s):');
+			for (var i = 0; i < processDefinitions.items.length; i++) {
+				$log.log('  - ' + processDefinitions.items[i].name + ' ' + processDefinitions.items[i].version);
+			}
+			// Logs out of Bonita
+			bonitaAuthentication.logout();
+		});
+	});
+
 	// $scope, $cookies, $modal, BonitaSession, User, HumanTask,
 	// ArchivedHumanTask, ProcessDefinition, ProcessInstance,
 	// ArchivedProcessInstance

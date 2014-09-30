@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('dashboard').controller('dashboardCtrl', function ($scope, $log, bonitaAuthentication, ProcessDefinition) {
-
+angular.module('dashboard').controller('dashboardCtrl', function ($scope, $log, bonitaAuthentication, ProcessDefinition, bonitaConfig) {
 	// Logs into Bonita as 'walter.bates'
 	bonitaAuthentication.login('walter.bates', 'bpm').then(function () {
+		console.log(bonitaConfig);
 		// Lists all process definitions that can be started by current user
 		ProcessDefinition.getStartableByCurrentUser().$promise.then(function (processDefinitions) {
 			$log.log('Listing ' + processDefinitions.items.length + ' process definition(s):');

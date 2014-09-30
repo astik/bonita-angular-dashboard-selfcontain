@@ -311,7 +311,7 @@ module.exports = function (grunt) {
 		// return grunt.task.run([ 'build', 'connect:dist:keepalive' ]);
 		// }
 		if (!proxyTarget) {
-			grunt.fail.warn('proxyTarget should be set : grunt serve:"http\://PATH_TO_BONITA_SERVER\:PORT"');
+			grunt.fail.warn('proxyTarget should be set : grunt serve:"http\\://PATH_TO_BONITA_SERVER\\:PORT"');
 			return;
 		}
 		proxies['/bonita'] = proxyTarget;

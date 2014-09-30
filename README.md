@@ -25,7 +25,10 @@ The param added to grunt serve is the destination for proxy, it allow developper
 1. To have something pretty to look at =)
 2. Manage a logout feature
 3. Create real independant directives
-4. Deploy ngBonita on bower so that it can be define as a bower dependency
+	1. Need to mutualise utility (getDate, openStartModal) : directive ? exposed utility functions ?
+	2. Need to cache a little bit the call to avoid having multiple dashboard calling the same service with the same properties)
+	3. Having a way to customize dashboard through declarative HTML and isolated scope properties
+4. Deploy ngBonita on bower so that it can be defined as a bower dependency
 5. Have a task to deploy the final 'custom page', ready to be imported into Bonita
 
 ## Why this project
@@ -38,3 +41,4 @@ Pozil's demo (https://github.com/pozil/bonita-angular-dashboard) has some culpri
 4. I'd really like to have self contained directives
 5. Boostrap is customizable through less (you'll find a variable file that will override Bootstrap default properties : app/less/_overriden_variables.less)
 6. Login is managed through a mandatory step ; the dashboard is only accessible after going through the login screen
+7. Dashboard need to be isolated from any scope / directive to ease their use (at least for the most common one ... maybe they need a module on their own like ngBonita-common-dashboard =))

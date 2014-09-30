@@ -18,7 +18,7 @@
 </head>
 <body ng-app="dashboard">
 
-	<div class="container" ng-controller="dashboardController">
+	<div class="container" ng-controller="dashboardCtrl">
 	
 		<div class="col-lg-6">
 			<user-stats></user-stats>
@@ -44,8 +44,13 @@
 	<!-- endbuild -->
 
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
-	<script src="scripts/ngBonita.js"></script>
-	<script src="scripts/dashboard.js"></script>
+	<script src="scripts_to_move_to_bower/ngBonita.js"></script>
+	<script src="scripts/app.js"></script>
+	<script src="scripts/directives/userApps.js"></script>
+	<script src="scripts/directives/userAvailableTasks.js"></script>
+	<script src="scripts/directives/userOpenCases.js"></script>
+	<script src="scripts/directives/userStats.js"></script>
+	<script src="scripts/controllers/dashboard.js"></script>
 	<!-- endbuild -->
 </body>
 </html>

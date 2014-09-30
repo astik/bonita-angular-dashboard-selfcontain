@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dashboard').controller('dashboardCtrl',
+angular.module('bonitaDashboardApp').controller('dashboardCtrl',
 		function ($scope, $log, $modal, bonitaAuthentication, bonitaConfig, BonitaSession, User, HumanTask, ArchivedHumanTask, ProcessDefinition, ProcessInstance, ArchivedProcessInstance) {
 			// Logs into Bonita as 'walter.bates'
 			bonitaAuthentication.login('walter.bates', 'bpm').then(function () {

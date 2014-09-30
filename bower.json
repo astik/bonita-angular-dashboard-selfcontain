@@ -2,14 +2,14 @@
   "name": "bonita-dashboard",
   "version": "0.0.0",
   "dependencies": {
+    "animate.css": "~3.2.0",
     "angular": "~1.2.0",
-    "bootstrap": "~3.2.0",
     "angular-resource": "~1.2.0",
     "angular-cookies": "~1.2.0",
-    "angular-sanitize": "~1.2.0",
-    "angular-animate": "~1.2.0",
-    "angular-touch": "~1.2.0",
-    "angular-route": "~1.2.0"
+    "angular-ui-router": "~0.2.11",
+    "bootstrap": "~3.2.0",
+    "angular-bootstrap": "~0.11.2",
+    "angular-ui-grid": "~3.0.0-rc.11"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",

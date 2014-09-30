@@ -22,12 +22,11 @@ The param added to grunt serve is the destination for proxy, it allow developper
 
 ## TODO
 
-1. To have something thing pretty to look at =)
+1. To have something pretty to look at =)
 2. Manage a one time login and a logout feature (instead of at each API call)
 3. Create real independant directives
 4. Deploy ngBonita on bower so that it can be define as a bower dependency
 5. Have a task to deploy the final 'custom page', ready to be imported into Bonita
-6. Boostrap should be customizable through a CSS pre-processor (like LESS which is lighter than SASS)
 
 ## Why this project
 
@@ -37,3 +36,4 @@ Pozil's demo (https://github.com/pozil/bonita-angular-dashboard) has some culpri
 2. it doesn't not use Grunt process workflow
 3. it doesn't use bower for front end dependencies management
 4. I'd really like to have self contained directives
+5. Boostrap is customizable through less (you'll find a variable file that will override Bootstrap default properties : app/less/_overriden_variables.less)

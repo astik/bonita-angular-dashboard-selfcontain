@@ -47,6 +47,10 @@ module.exports = function (grunt) {
 
 		// Watches files for changes and runs tasks based on the changed files
 		watch : {
+			less : {
+				files : [ '<%= yeoman.app %>/less/*.less' ],
+				tasks : [ 'less' ]
+			},
 			bower : {
 				files : [ 'bower.json' ],
 				tasks : [ 'wiredep' ]
@@ -63,7 +67,7 @@ module.exports = function (grunt) {
 				tasks : [ 'newer:jshint:test', 'karma' ]
 			},
 			styles : {
-				files : [ '<%= yeoman.app %>/styles/{,*/}*.css' ],
+				files : [ '<%= yeoman.tmp %>/styles/{,*/}*.css' ],
 				tasks : [ 'newer:copy:styles', 'autoprefixer' ]
 			},
 			gruntfile : {
@@ -297,6 +301,18 @@ module.exports = function (grunt) {
 			dist : [ 'copy:styles', 'imagemin', 'svgmin' ]
 		},
 
+		less : {
+			development : {
+				files : [ {
+					expand : true,
+					cwd : '<%= yeoman.app %>/less',
+					src : [ 'bootstrap.less', 'main.less' ],
+					dest : '<%= yeoman.tmp %>/styles',
+					ext : '.css'
+				} ]
+			}
+		},
+
 		// Test settings
 		karma : {
 			unit : {
@@ -315,18 +331,13 @@ module.exports = function (grunt) {
 			return;
 		}
 		proxies['/bonita'] = proxyTarget;
-		grunt.task.run([ 'clean:server', 'wiredep', 'concurrent:server', 'autoprefixer', 'connect:livereload', 'watch' ]);
+		grunt.task.run([ 'clean:server', 'wiredep', 'less', 'concurrent:server', 'autoprefixer', 'connect:livereload', 'watch' ]);
 	});
 
-	grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {
-		grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-		grunt.task.run([ 'serve:' + target ]);
-	});
+	grunt.registerTask('test', [ 'clean:server', 'less', 'concurrent:test', 'autoprefixer', 'connect:test', 'karma' ]);
 
-	grunt.registerTask('test', [ 'clean:server', 'concurrent:test', 'autoprefixer', 'connect:test', 'karma' ]);
-
-	grunt.registerTask('build', [ 'clean:dist', 'wiredep', 'useminPrepare', 'concurrent:dist', 'autoprefixer', 'concat', 'ngAnnotate', 'copy:dist', 'cdnify', 'cssmin', 'uglify', 'filerev', 'usemin',
-			'htmlmin' ]);
+	grunt.registerTask('build', [ 'clean:dist', 'wiredep', 'useminPrepare', 'less', 'concurrent:dist', 'autoprefixer', 'concat', 'ngAnnotate', 'copy:dist', 'cdnify', 'cssmin', 'uglify', 'filerev',
+			'usemin', 'htmlmin' ]);
 
 	grunt.registerTask('default', [ 'newer:jshint', 'test', 'build' ]);
 };
